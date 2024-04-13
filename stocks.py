@@ -70,6 +70,7 @@ class Listed_watchlist():
                     print("fsdf")
                     self.watchlist_edit(stocks_info)
                     continue
+                op
             except Exception as e:
                 print("Invalid symbol, please check again")
                 pass
