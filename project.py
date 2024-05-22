@@ -20,8 +20,7 @@ class Listed_watchlist():
                     self.df = self.df.reindex(columns=column_x)
                     raise pd.errors.EmptyDataError
             else:
-                self.df = pd.DataFrame(columns=['Name', 'Symbol' ,'LTP', 'Alert_con', "Alert_price",'Volume', 'Daily %','Exchange','Currency'])
-                self.df.to_csv("watchlist.csv", index=False)
+                raise pd.errors.EmptyDataError
         except pd.errors.EmptyDataError:
             print("watchlist.csv is empty or is mismatched. Recreating DataFrame.")
             self.df = pd.DataFrame(columns=['Name', 'Symbol' ,'LTP', 'Alert_con', "Alert_price",'Volume', 'Daily %','Exchange','Currency'])
