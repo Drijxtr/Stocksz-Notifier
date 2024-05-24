@@ -20,38 +20,25 @@ To get started, you'll need Python and a few libraries. Install them by running:
 pip install yfinance pandas art cowsay pyttsx3
 ```
 
-## Command lines:
 
-INFO: Get detailed information about a specific stock.
-EDIT: Open the watchlist editor to add/remove stocks or set alerts.
-LTP: Display the latest prices for your watchlist stocks.
-EXIT: Exit the application.
-Edit Watchlist Commands:
 
-ADD: Add a new stock to your watchlist.
-REMOVE: Remove a stock from your watchlist.
-ALERT: Set a price alert for a stock.
-LTP: Show the latest prices for your watchlist stocks.
-BACK: Return to the main menu.
-EXIT: Exit the application.
-Example Usage
-Here's how you can use Stocks Notifier:
+## Command Line Interface (CLI) Commands
 
-Add a Stock:
+##### ADD: Add a new stock to your watchlist. E.g ###### location/project.py ADD NVDA
+##### REMOVE: Remove a stock from your watchlist. E.g ###### location/project.py REMOVE NVDA
+##### LTP: Prints the latest prices for your watchlist stocks.
+##### INFO: Get detailed information about a stock. E.g ###### location/project.py INFO NVDA
+##### EDIT: Directly opens the watchlist editor to add/remove stocks or set alerts.  
 
-Type ADD and enter the stock symbol (like AAPL for Apple).
 
-Set an Alert:
 
-Type ALERT, enter the stock symbol, and then set your alert condition (>, <, >=, <=, ==) and price.
+## In-Script Menu Options
 
-Check Latest Prices:
+##### ADD: Adds a new stock to your watchlist.
+##### REMOVE: Removes a stock from your watchlist.
+##### ALERT: Sets a price alert for a stock.
+##### LTP: Shows the latest prices for your watchlist stocks.
 
-Type LTP to see the current prices of all stocks in your watchlist.
 
-Remove a Stock:
 
-Type REMOVE and enter the stock symbol you want to remove.
-
-Customizing Alerts
-Want to customize the alert sound? Just replace the alert_sound.wav file in the project directory. Make sure the new file has the same name and format.
+##### NOTE: ###### This is my first project and I am still learning soso use the script carefully i would appreciate any feedback, criticism or any advice i would appreciate it
