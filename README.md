@@ -41,4 +41,5 @@ pip install yfinance pandas art cowsay pyttsx3
 
 
 
-##### NOTE: ###### This is my first project and I am still learning soso use the script carefully i would appreciate any feedback, criticism or any advice i would appreciate it
+##### NOTE: 
+###### This is my first project and I am still learning so use the script carefully I would appreciate any feedback, criticism or any advice I would appreciate it
