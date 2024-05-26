@@ -37,6 +37,8 @@ pip install yfinance pandas art cowsay pyttsx3
 ##### ADD: Adds a new stock to your watchlist.
 ##### REMOVE: Removes a stock from your watchlist.
 ##### ALERT: Sets a price alert for a stock.
+##### INFO: Get detailed information about a stock. E.g ###### location/project.py INFO NVDA
+##### EDIT: Directly opens the watchlist editor to add/remove stocks or set alerts.  
 ##### LTP: Shows the latest prices for your watchlist stocks.
 
 
