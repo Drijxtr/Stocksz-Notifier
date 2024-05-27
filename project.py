@@ -185,34 +185,34 @@ class Listed_watchlist():
                                 alert_val= float(input(""))
                                 self.df.loc[alert_condition, "Alert_price"]= alert_val
                                 print(f"{alert_req} sets the alert price to {alert_val}")
-                                if user_alert_instructions == ">" and (self.df.loc[alert_condition, "LTP"] > alert_val).all():
+                                if user_alert_instructions == ">" and (self.df.loc[alert_condition, "LTP"] > float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = None
+                                    self.df.loc[alert_condition, "Alert_price"] = "X"
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
-                                elif user_alert_instructions == ">=" and (self.df.loc[alert_condition, "LTP"] >= alert_val).all():
+                                elif user_alert_instructions == ">=" and (self.df.loc[alert_condition, "LTP"] >= float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = None
+                                    self.df.loc[alert_condition, "Alert_price"] = "X"
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
-                                elif user_alert_instructions == "==" and (self.df.loc[alert_condition, "LTP"] == alert_val).all():
+                                elif user_alert_instructions == "==" and (self.df.loc[alert_condition, "LTP"] == float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = None
+                                    self.df.loc[alert_condition, "Alert_price"] = "X"
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
-                                elif user_alert_instructions == "<" and (self.df.loc[alert_condition, "LTP"] < alert_val).all():
+                                elif user_alert_instructions == "<" and (self.df.loc[alert_condition, "LTP"] < float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = None
+                                    self.df.loc[alert_condition, "Alert_price"] = "X"
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
-                                elif user_alert_instructions == "<=" and (self.df.loc[alert_condition, "LTP"] <= alert_val).all():
+                                elif user_alert_instructions == "<=" and (self.df.loc[alert_condition, "LTP"] <= float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = None
+                                    self.df.loc[alert_condition, "Alert_price"] = "X"
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 self.df.loc[alert_condition, "Alert_con"] = user_alert_instructions
@@ -233,6 +233,9 @@ class Listed_watchlist():
             if not Alert_price == "X":
                 ltp, Alert_price = map(float, [ltp, Alert_price])
                 if (ltp > Alert_price) and Alert_con == ">":
+                    self.df.loc[index, "Alert_con"] = "X"
+                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.to_csv("watchlist.csv", index=False)
                     print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
                     alerting_stock= f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}"
                     cowsay.cow(alerting_stock)
@@ -240,41 +243,37 @@ class Listed_watchlist():
                     alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
-                    time.sleep(2)
-                    self.df.loc[index, "Alert_con"] = None
-                    self.df.loc[index, "Alert_price"] = None
-                    self.df.to_csv("watchlist.csv", index=False)
                 elif (ltp >= Alert_price) and Alert_con == ">=":
+                    self.df.loc[index, "Alert_con"] = "X"
+                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.to_csv("watchlist.csv", index=False)
                     print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
                     winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
                     alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
-                    time.sleep(2)
-                    self.df.loc[index, "Alert_con"] = None
-                    self.df.loc[index, "Alert_price"] = None
-                    self.df.to_csv("watchlist.csv", index=False)
                 elif (ltp < Alert_price) and Alert_con == "<":
+                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.loc[index, "Alert_con"] = "X"
+                    self.df.to_csv("watchlist.csv", index=False)
                     print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
                     winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
                     alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
-                    time.sleep(2)
-                    self.df.loc[index, "Alert_con"] = None
-                    self.df.loc[index, "Alert_price"] = None
-                    self.df.to_csv("watchlist.csv", index=False)
                 elif (ltp <= Alert_price) and Alert_con == "<=":
+                    self.df.loc[index, "Alert_con"] = "X"
+                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.to_csv("watchlist.csv", index=False)
                     print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
                     winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
                     alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
-                    time.sleep(2)
-                    self.df.loc[index, "Alert_con"] = None
-                    self.df.loc[index, "Alert_price"] = None
-                    self.df.to_csv("watchlist.csv", index=False)
                 elif (ltp == Alert_price) and Alert_con == "==":
+                    self.df.loc[index, "Alert_con"] = "X"
+                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.to_csv("watchlist.csv", index=False)
                     print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
                     alerting_stock= f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}"
                     cowsay.cow(alerting_stock)
@@ -282,10 +281,6 @@ class Listed_watchlist():
                     alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
-                    time.sleep(2)
-                    self.df.loc[index, "Alert_con"] = None
-                    self.df.loc[index, "Alert_price"] = None
-                    self.df.to_csv("watchlist.csv", index=False)
             else:
                 pass
     
@@ -352,6 +347,8 @@ def Req_handler(req, stock= None):
         watchlist_modify()
 
 def watchlist_modify():
+    if __name__ == "__main__":
+        my_watchlist = Listed_watchlist()
     print("Modifying watchlist")
     watchlist_edit_menus= f"Commands: {"ADD", "ALERT", "REMOVE", "LTP", "BACK", "EXIT"}"
     while True:
@@ -403,18 +400,25 @@ def Sys_handler(arg):
             sys.exit("")
 
 if __name__ == "__main__":
-    sys_menu = {"LTP", "ADD", "REMOVE"}
+    sys_menu = {"EDIT", "LTP", "INFO", "ADD", "REMOVE"}
     while True:
-        if len(sys.argv) == 3 and sys.argv[1].upper() in {"ADD", "REMOVE", "INFO"}:
-            if sys.argv[1].upper() == "INFO":
-                req= sys.argv[1].upper()
-                stock= sys.argv[2].upper()
-                Req_handler(req, stock)
-            else:
+        if len(sys.argv) != 1:
+            if len(sys.argv) == 3 and sys.argv[1].upper() in {"ADD", "REMOVE", "INFO"}:
+                if sys.argv[1].upper() == "INFO":
+                    req= sys.argv[1].upper()
+                    stock= sys.argv[2].upper()
+                    Req_handler(req, stock)
+                else:
+                    Sys_handler(sys.argv)
+                sys.exit(f"available commands: {sys_menu}")
+            elif len(sys.argv) == 2 and sys.argv[1].upper() in {"LTP"}:
                 Sys_handler(sys.argv)
-            sys.exit(f"available commands: {sys_menu}")
-        elif len(sys.argv) == 2 and sys.argv[1].upper() in {"LTP"}:
-            Sys_handler(sys.argv)
-            sys.exit(f"available commands: {sys_menu}")
+                sys.exit(f"available commands: {sys_menu}")
+            elif len(sys.argv) == 2 and sys.argv[1].upper() in {"EDIT"}:
+                Req_handler(sys.argv[1].upper())
+            else:
+                print("Unknown command")
+                sys.exit(f"available commands: {sys_menu}")
         else:
             main()
+            
