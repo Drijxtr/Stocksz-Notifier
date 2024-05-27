@@ -57,5 +57,11 @@ location/project.py EDIT
 
 
 
-##### NOTE: 
-###### This is my first project and I am still learning so use the script carefully I would appreciate any feedback, criticism or advice I would appreciate it
+## Note to Users and Contributors
+
+This is my first project, and I'm eager to learn and improve. If you have any suggestions, feedback, or would like to contribute to the project, please feel free to open an issue or submit a pull request. Your insights are highly valued!
+
+## License
+
+This project is licensed under the Apache License 2.0 - see the LICENSE file for details.
+
