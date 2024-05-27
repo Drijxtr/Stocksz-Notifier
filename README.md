@@ -24,12 +24,26 @@ pip install yfinance pandas art cowsay pyttsx3
 
 ## Command Line Interface (CLI) Commands
 
-##### ADD: Add a new stock to your watchlist. E.g ###### location/project.py ADD NVDA
-##### REMOVE: Remove a stock from your watchlist. E.g ###### location/project.py REMOVE NVDA
+##### ADD: Add a new stock to your watchlist.
+```sh
+location/project.py ADD NVDA
+```
+##### REMOVE: Remove a stock from your watchlist.
+```sh
+location/project.py REMOVE NVDA
+```
 ##### LTP: Prints the latest prices for your watchlist stocks.
-##### INFO: Get detailed information about a stock. E.g ###### location/project.py INFO NVDA
+```sh
+location/project.py LTP
+```
+##### INFO: Get detailed information about a stock.
+```sh
+location/project.py INFO
+```
 ##### EDIT: Directly opens the watchlist editor to add/remove stocks or set alerts.  
-
+```sh
+location/project.py EDIT
+```
 
 
 ## In-Script Menu Options
@@ -37,11 +51,11 @@ pip install yfinance pandas art cowsay pyttsx3
 ##### ADD: Adds a new stock to your watchlist.
 ##### REMOVE: Removes a stock from your watchlist.
 ##### ALERT: Sets a price alert for a stock.
-##### INFO: Get detailed information about a stock. E.g ###### location/project.py INFO NVDA
+##### INFO: Get detailed information about a stock.
 ##### EDIT: Directly opens the watchlist editor to add/remove stocks or set alerts.  
 ##### LTP: Shows the latest prices for your watchlist stocks.
 
 
 
 ##### NOTE: 
-###### This is my first project and I am still learning so use the script carefully I would appreciate any feedback, criticism or any advice I would appreciate it
+###### This is my first project and I am still learning so use the script carefully I would appreciate any feedback, criticism or advice I would appreciate it
