@@ -318,17 +318,17 @@ def Req_handler(req, stock= None):
         return sys.exit("Shutting script")
     if req == "INFO":
         try:
-            print("Type the stock symbol for info")
-            if __name__ == "__main__":
+            if stock != None:
                 info_data= yf.Ticker(stock).info
                 sys.exit(info_data)
             else:
+                print("Type the stock symbol for info")
                 info_stock= input("_ ").upper()
+                info_data= yf.Ticker(info_stock).info
             if info_stock == "BACK":
                 return
             elif info_stock == "EXIT":
                 sys.exit("Shutting script")
-            info_data= yf.Ticker(info_stock).info
             if info_data or (info_stock== "BACK" or info_stock== "EXIT"):
                 if info_stock== "BACK":
                     return
@@ -421,4 +421,3 @@ if __name__ == "__main__":
                 sys.exit(f"available commands: {sys_menu}")
         else:
             main()
-            
