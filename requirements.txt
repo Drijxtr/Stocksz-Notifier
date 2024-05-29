@@ -1,5 +1,6 @@
-pip install yfinance
-pip install pandas
-pip install art
-pip install cowsay
-pip install pyttsx3
+yfinance
+pandas
+pygame
+art
+cowsay
+pyttsx3
