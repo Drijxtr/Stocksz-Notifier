@@ -3,7 +3,8 @@ import yfinance as yf
 import pandas as pd
 import os
 import threading
-import winsound
+os.environ['PYGAME_HIDE_SUPPORT_PROMPT'] = "hide"
+import pygame
 import time
 from art import *
 import cowsay
@@ -68,7 +69,7 @@ class Listed_watchlist():
             return
         self.new_data= {"Name": [stock["shortName"].upper()],
                         "Symbol": [stock["symbol"]],
-                        "Alert_price": ["X"],
+                        "Alert_price": [float('nan')],
                         "Alert_con": ["X"],
                         "LTP": [stock["currentPrice"]],
                         "Volume": [stock["volume"]],
@@ -188,31 +189,31 @@ class Listed_watchlist():
                                 if user_alert_instructions == ">" and (self.df.loc[alert_condition, "LTP"] > float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = "X"
+                                    self.df.loc[alert_condition, "Alert_price"] = float('nan')
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 elif user_alert_instructions == ">=" and (self.df.loc[alert_condition, "LTP"] >= float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = "X"
+                                    self.df.loc[alert_condition, "Alert_price"] = float('nan')
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 elif user_alert_instructions == "==" and (self.df.loc[alert_condition, "LTP"] == float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = "X"
+                                    self.df.loc[alert_condition, "Alert_price"] = float('nan')
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 elif user_alert_instructions == "<" and (self.df.loc[alert_condition, "LTP"] < float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = "X"
+                                    self.df.loc[alert_condition, "Alert_price"] = float('nan')
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 elif user_alert_instructions == "<=" and (self.df.loc[alert_condition, "LTP"] <= float(alert_val)).all():
                                     alert_stock= self.df.loc[alert_condition, "Symbol"].values[0]
                                     print(f"{alert_stock} already matches the alert condition")
-                                    self.df.loc[alert_condition, "Alert_price"] = "X"
+                                    self.df.loc[alert_condition, "Alert_price"] = float('nan')
                                     self.df.to_csv("watchlist.csv", index=False)
                                     break
                                 self.df.loc[alert_condition, "Alert_con"] = user_alert_instructions
@@ -226,6 +227,8 @@ class Listed_watchlist():
                     continue            
 
     def alert_stock(self):
+        pygame.mixer.init()
+        pygame.mixer.music.load(r'C:\Users\Aditya\final_project\alert_sound.wav')
         for index,alert_values in self.df.iterrows():
             ltp = alert_values["LTP"]
             Alert_con = alert_values["Alert_con"]
@@ -234,51 +237,49 @@ class Listed_watchlist():
                 ltp, Alert_price = map(float, [ltp, Alert_price])
                 if (ltp > Alert_price) and Alert_con == ">":
                     self.df.loc[index, "Alert_con"] = "X"
-                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.loc[index, "Alert_price"] = float("nan")
                     self.df.to_csv("watchlist.csv", index=False)
-                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
+                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price} {alert_values["Currency"]}")
                     alerting_stock= f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}"
                     cowsay.cow(alerting_stock)
-                    winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
-                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
+                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price} {alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
                 elif (ltp >= Alert_price) and Alert_con == ">=":
                     self.df.loc[index, "Alert_con"] = "X"
-                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.loc[index, "Alert_price"] = float("nan")
                     self.df.to_csv("watchlist.csv", index=False)
-                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
-                    winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
-                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
+                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price} {alert_values["Currency"]}")
+                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price} {alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
                 elif (ltp < Alert_price) and Alert_con == "<":
-                    self.df.loc[index, "Alert_price"] = "X"
+                    pygame.mixer.music.play()
+                    self.df.loc[index, "Alert_price"] = float("nan")
                     self.df.loc[index, "Alert_con"] = "X"
                     self.df.to_csv("watchlist.csv", index=False)
-                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
-                    winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
-                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
+                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price} {alert_values["Currency"]}")
+                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price} {alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
                 elif (ltp <= Alert_price) and Alert_con == "<=":
                     self.df.loc[index, "Alert_con"] = "X"
-                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.loc[index, "Alert_price"] = float("nan")
                     self.df.to_csv("watchlist.csv", index=False)
-                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
-                    winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
-                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
+                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price} {alert_values["Currency"]}")
+                    pygame.mixer.music.play()
+                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price} {alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
                 elif (ltp == Alert_price) and Alert_con == "==":
+                    pygame.mixer.music.play()
                     self.df.loc[index, "Alert_con"] = "X"
-                    self.df.loc[index, "Alert_price"] = "X"
+                    self.df.loc[index, "Alert_price"] = float("nan")
                     self.df.to_csv("watchlist.csv", index=False)
-                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}")
+                    print(f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price} {alert_values["Currency"]}")
                     alerting_stock= f"ALERT!!! {alert_values["Symbol"]} REACHED {Alert_price}"
                     cowsay.cow(alerting_stock)
-                    winsound.PlaySound(r"C:\Users\Aditya\final_project\alert_sound.wav", winsound.SND_FILENAME)
-                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price}{alert_values["Currency"]}"
+                    alerting_tts= f"ALERT!!! {alert_values["Name"]} TRIGGERED YOUR ALERT VALUE OF {Alert_price} {alert_values["Currency"]}"
                     self.engine.say(alerting_tts)
                     self.engine.runAndWait()
             else:
