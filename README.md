@@ -1,6 +1,6 @@
 # Stocks Notifier
-
-## Description
+#### Video Demo: https://youtu.be/4bFws57iwxA
+#### Description
 
 Stocks Notifier is a simple Python script that tracks your stocks and notifies you when they reach your desired price.
 
